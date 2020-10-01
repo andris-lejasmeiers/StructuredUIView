@@ -5,6 +5,7 @@
 //  Created by Andris Lejasmeiers on 05/12/2019.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 open class StructuredUIView: UIView, StructuredUIViewProtocol {
@@ -81,3 +82,4 @@ open class StructuredUIView: UIView, StructuredUIViewProtocol {
     _needsUpdateAppearance = false
   }
 }
+#endif

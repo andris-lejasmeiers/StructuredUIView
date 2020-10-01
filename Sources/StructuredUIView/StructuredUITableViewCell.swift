@@ -5,6 +5,7 @@
 //  Created by Andris Lejasmeiers on 05/12/2019.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 open class StructuredUITableViewCell: UITableViewCell, StructuredUIViewProtocol {
@@ -86,3 +87,4 @@ open class StructuredUITableViewCell: UITableViewCell, StructuredUIViewProtocol 
     _needsUpdateAppearance = false
   }
 }
+#endif

@@ -5,6 +5,7 @@
 //  Created by Andris Lejasmeiers on 05/12/2019.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 open class StructuredUICollectionViewCell: UICollectionViewCell, StructuredUIViewProtocol {
@@ -86,3 +87,4 @@ open class StructuredUICollectionViewCell: UICollectionViewCell, StructuredUIVie
     _needsUpdateAppearance = false
   }
 }
+#endif
