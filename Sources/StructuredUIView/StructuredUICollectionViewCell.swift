@@ -71,7 +71,7 @@ open class StructuredUICollectionViewCell: UICollectionViewCell, StructuredUIVie
 
   open func updateAppearance() {}
 
-  public func needsUpdateAppearance() -> Bool { _needsUpdateAppearance }
+  open func needsUpdateAppearance() -> Bool { _needsUpdateAppearance }
 
   public func setNeedsUpdateAppearance() {
     guard !needsUpdateAppearance() else { return }

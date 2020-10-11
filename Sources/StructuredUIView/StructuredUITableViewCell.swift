@@ -71,7 +71,7 @@ open class StructuredUITableViewCell: UITableViewCell, StructuredUIViewProtocol 
 
   open func updateAppearance() {}
 
-  public func needsUpdateAppearance() -> Bool { _needsUpdateAppearance }
+  open func needsUpdateAppearance() -> Bool { _needsUpdateAppearance }
 
   public func setNeedsUpdateAppearance() {
     guard !needsUpdateAppearance() else { return }
