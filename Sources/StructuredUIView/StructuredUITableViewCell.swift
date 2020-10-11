@@ -75,7 +75,7 @@ open class StructuredUITableViewCell: UITableViewCell, StructuredUIViewProtocol 
 
   public func setNeedsUpdateAppearance() {
     guard !needsUpdateAppearance() else { return }
-    resetNeedsUpdateAppearance()
+    _needsUpdateAppearance = true
     CFRunLoopPerformBlock(
       RunLoop.main.getCFRunLoop(),
       RunLoop.Mode.common as CFTypeRef,

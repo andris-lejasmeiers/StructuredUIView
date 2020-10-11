@@ -66,11 +66,11 @@ open class StructuredUIView: UIView, StructuredUIViewProtocol {
 
   open func updateAppearance() {}
 
-  public func needsUpdateAppearance() -> Bool { _needsUpdateAppearance }
+  open func needsUpdateAppearance() -> Bool { _needsUpdateAppearance }
 
   public func setNeedsUpdateAppearance() {
     guard !needsUpdateAppearance() else { return }
-    resetNeedsUpdateAppearance()
+    _needsUpdateAppearance = true
     CFRunLoopPerformBlock(
       RunLoop.main.getCFRunLoop(),
       RunLoop.Mode.common as CFTypeRef,
