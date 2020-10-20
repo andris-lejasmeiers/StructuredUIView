@@ -21,9 +21,11 @@ open class StructuredUICollectionViewCell: UICollectionViewCell, StructuredUIVie
     setUp()
   }
 
-  open override func traitCollectionDidChange(_: UITraitCollection?) {
-    super.traitCollectionDidChange(traitCollection)
-    setNeedsUpdateAppearance()
+  open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    if traitCollection != previousTraitCollection {
+      setNeedsUpdateAppearance()
+    }
   }
 
   open override func didMoveToSuperview() {
@@ -38,6 +40,11 @@ open class StructuredUICollectionViewCell: UICollectionViewCell, StructuredUIVie
     resetNeedsUpdateAppearance()
   }
 
+  open override func draw(_ rect: CGRect) {
+    updateAppearanceIfNeeded()
+    super.draw(rect)
+  }
+  
   // MARK: - StructuredUIViewProtocol
 
   // MARK: Generic
@@ -76,18 +83,9 @@ open class StructuredUICollectionViewCell: UICollectionViewCell, StructuredUIVie
   public func setNeedsUpdateAppearance() {
     guard !needsUpdateAppearance() else { return }
     _needsUpdateAppearance = true
-    #if STRUCTUREDUIVIEW_COALESCING_DISABLED
-    return updateAppearanceIfNeeded()
-    #endif
-    CFRunLoopPerformBlock(
-      RunLoop.main.getCFRunLoop(),
-      RunLoop.Mode.common as CFTypeRef,
-      updateAppearanceIfNeeded
-    )
+    setNeedsDisplay()
   }
 
-  public func resetNeedsUpdateAppearance() {
-    _needsUpdateAppearance = false
-  }
+  public func resetNeedsUpdateAppearance() { _needsUpdateAppearance = false }
 }
 #endif

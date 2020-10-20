@@ -21,9 +21,11 @@ open class StructuredUIStackView: UIStackView, StructuredUIViewProtocol {
     setUp()
   }
 
-  open override func traitCollectionDidChange(_: UITraitCollection?) {
-    super.traitCollectionDidChange(traitCollection)
-    setNeedsUpdateAppearance()
+  open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    if traitCollection != previousTraitCollection {
+      setNeedsUpdateAppearance()
+    }
   }
 
   open override func didMoveToSuperview() {
@@ -31,6 +33,11 @@ open class StructuredUIStackView: UIStackView, StructuredUIViewProtocol {
     if superview != nil {
       setNeedsUpdateAppearance()
     }
+  }
+
+  open override func draw(_ rect: CGRect) {
+    updateAppearanceIfNeeded()
+    super.draw(rect)
   }
 
   // MARK: - StructuredUIViewProtocol
@@ -71,18 +78,9 @@ open class StructuredUIStackView: UIStackView, StructuredUIViewProtocol {
   public func setNeedsUpdateAppearance() {
     guard !needsUpdateAppearance() else { return }
     _needsUpdateAppearance = true
-    #if STRUCTUREDUIVIEW_COALESCING_DISABLED
-    return updateAppearanceIfNeeded()
-    #endif
-    CFRunLoopPerformBlock(
-      RunLoop.main.getCFRunLoop(),
-      RunLoop.Mode.common as CFTypeRef,
-      updateAppearanceIfNeeded
-    )
+    setNeedsDisplay()
   }
 
-  public func resetNeedsUpdateAppearance() {
-    _needsUpdateAppearance = false
-  }
+  public func resetNeedsUpdateAppearance() { _needsUpdateAppearance = false }
 }
 #endif
