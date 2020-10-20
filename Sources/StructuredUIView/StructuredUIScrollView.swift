@@ -71,6 +71,9 @@ open class StructuredUIScrollView: UIView, StructuredUIViewProtocol {
   public func setNeedsUpdateAppearance() {
     guard !needsUpdateAppearance() else { return }
     _needsUpdateAppearance = true
+    #if STRUCTUREDUIVIEW_COALESCING_DISABLED
+    return updateAppearanceIfNeeded()
+    #endif
     CFRunLoopPerformBlock(
       RunLoop.main.getCFRunLoop(),
       RunLoop.Mode.common as CFTypeRef,
